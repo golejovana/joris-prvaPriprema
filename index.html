@@ -4,8 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <form action="http://url" method="post" class="styled-form">
+        <div>
+            <label for="ocena">Ocena:</label>
+            <input type="number" id="ocena" name="ocena" required>
+            <label for="broj-indeksa">Broj indeksa:</label>
+            <input type="text" id="broj-indeksa" name="broj-indeksa" required>
+            <label for="redni-broj-ispita">Redni broj izlaska na ispit:</label>
+            <input type="number" id="redni-broj-ispita" name="redni-broj-ispita" required>
+        </div>
+        <div>
+            <label for="datum-ispita">Datum izlaska na ispit:</label>
+            <input type="date" id="datum-ispita" name="datum-ispita" required>
+            <label for="rok">Rok</label>
+            <input type="radio" id="jan" name="rok" value="Januar">
+            <label for="jan">Januar</label>
+            <input type="radio" id="april" name="rok" value="April">
+            <label for="jan">April</label>
+            <input type="radio" id="jun" name="rok" value="Jun">
+            <label for="jun">Jun</label>
+            <input type="radio" id="septembar" name="rok" value="Septembar">
+            <label for="septembar">Septembar</label>
+            <br><br>
+            <input type="checkbox" id="polozila" name="polozila">
+            <label for="polozila">Polozila</label>
+        </div>
+        <input type="submit" value="Posalji">
+    </form>
 </body>
 </html>
