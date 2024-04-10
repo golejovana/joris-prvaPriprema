@@ -1,51 +1,69 @@
-function podaciForme() {
-    // Prikupljanje unetih podataka iz forme
-    let ocena = document.getElementById('ocena').value;
-    let brojIndeksa = document.getElementById('broj-indeksa').value;
-    let redniBrojIspita = document.getElementById('redni-broj-ispita').value;
-    let datumIspita = document.getElementById('datum-ispita').value;
-    let rok = document.querySelector('input[name="rok"]:checked');
-    let polozila = document.getElementById('polozila').checked;
+function podaciForme(){
+    // Restartuj poruke o grešci!!!!!!!!!!!!!!!
+    const greske = document.querySelectorAll('.error-message');
+    greske.forEach(greska => greska.textContent = '');
 
-    // Validacija ocene
+    const ocena = document.getElementById('ocena').value;
+    const brojIndeksa = document.getElementById('broj-indeksa').value;
+    const indeks=brojIndeksa.split('/')
+    const godina = indeks[0];
+    const broj = indeks[1];
+    const polozen = document.getElementById('polozen').checked;
+
     if (ocena < 5 || ocena > 10) {
-        console.log('Ocena mora biti u opsegu od 5 do 10.');
-        return;
+        const ocenaError = document.getElementById('ocena-error');
+        ocenaError.textContent = 'Ocena mora biti u opsegu [5-10].';
+        return false;
+    }
+    
+    if (brojIndeksa.length !== 9 || isNaN(parseInt(godina)) || isNaN(parseInt(broj)) || godina <= 2000 || broj < 1 || broj > 1000) {
+        const indeksError= document.getElementById('broj-indeksa-error');
+        indeksError.textContent = 'Broj indeksa mora biti u formatu XXXX/YYYY (godina/broj), gde godina mora biti veća od 1000, a broj u opsegu 1-1000.';
+        return false;
     }
 
-    // Validacija broja indeksa
-    let godina = brojIndeksa.split('/')[0];
-    let broj = brojIndeksa.split('/')[1];
-    if (brojIndeksa.length !== 9 || isNaN(godina) || isNaN(broj) || godina < 2000 || broj < 1 || broj > 1000) {
-        console.log('Broj indeksa mora biti u formatu YYYY/XXXX (godina/broj), gde godina mora biti veća od 2000, a broj u opsegu od 1 do 1000.');
-        return;
+    if ((ocena >= 6 && ocena <= 10) && !polozen) {
+        const polozenError=document.getElementById('polozen-error');
+        polozenError.textContent = 'Ako je ocena u opsegu [6-10], checkbox "Polozila" mora biti označen.';
+        return false;
     }
-
-    // Validacija checkbox-a za polaganje
-    if ((ocena >= 6 && ocena <= 10) && !polozila) {
-        console.log('Ako je ocena u opsegu od 6 do 10, checkbox "Položio/la" mora biti označen.');
-        return;
-    }
-
-
-    // Formiranje JSON objekta
-    let podaci = {
-        ocena: ocena,
-        brojIndeksa: brojIndeksa,
-        redniBrojIspita: redniBrojIspita,
-        datumIspita: datumIspita,
-        rok: rok ? rok.value : null,
-        polozila: polozila
-    };
-
-    // Vraćanje JSON objekta u vidu stringa
-   return JSON.stringify(podaci);
-    //console.log(podaci);
+    
+    return true;
 }
 
-function submitForm() {
-    let forma = document.getElementById('myForm');
-    let rezultat = podaciForme();
-    console.log(rezultat);
-}
+const form=document.getElementById('forma');
 
+
+function posalji(event){
+    event.preventDefault(); 
+
+    //Restartovanje greski
+    const greske = document.querySelectorAll('.error-message');
+    greske.forEach(greska => greska.textContent = '');
+
+    // Validacija forme
+    const valid = podaciForme();
+
+    if (valid) {
+        // Kreiranje JSON objekta
+        const obj = {
+            ocena: parseInt(document.getElementById('ocena').value),
+            datumIzlaska: document.getElementById('datum-ispita').value,
+            brojIndeksa: document.getElementById('broj-indeksa').value,
+            rok: document.querySelector('input[name="rok"]:checked').value,
+            redniBrojIzlaska: parseInt(document.getElementById('redni-broj-ispita').value),
+            polozen: document.getElementById('polozen').checked
+        };
+
+        // Postavljanje JSON objekta u textarea
+        const podaciForme=document.getElementById('podaci-forme');
+        podaciForme.textContent = JSON.stringify(obj,null,4);
+
+        // Resetovanje polja forme
+        form.reset()
+    }
+};
+
+form.addEventListener('submit', posalji);
+//const btnPosalji = document.getElementById('btn-posalji');
+//btnPosalji.addEventListener('click', posalji);

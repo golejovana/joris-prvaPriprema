@@ -3,43 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Forma</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" method="post" id="myForm">
-        <div>
-            <label for="ocena">Ocena:</label>
-            <input type="number" id="ocena" name="ocena" required>
-            <br><br>
-            <label for="broj-indeksa">Broj indeksa:</label>
-            <input type="text" id="broj-indeksa" name="broj-indeksa" required>
-            <br><br>
-            <label for="redni-broj-ispita">Redni broj izlaska na ispit:</label>
-            <input type="number" id="redni-broj-ispita" name="redni-broj-ispita" required>
-            <br><br>
-        </div>
-        <div>
-            <label for="datum-ispita">Datum izlaska na ispit:</label>
-            <input type="date" id="datum-ispita" name="datum-ispita" required>
-            <br><br>
+    <div class="forma-cela">
+        <form action="" id="forma">
+            <div class="forma-kolona" id="leva-kolona">
+                <div class="forma-stavka">
+                    <label for="ocena">Ocena:</label>
+                    <input type="number" id="ocena" name="ocena" required> <br>
+                    <span class="error-message" id="ocena-error" ></span> 
+                </div>
+                <div class="forma-stavka">
+                    <label for="broj-indeksa">Broj indeksa:</label>
+                    <input type="text" id="broj-indeksa" name="broj-indeksa" required> <br>
+                    <span class="error-message" id="broj-indeksa-error"></span> 
+                </div>
+                <div class="forma-stavka">
+                    <label for="redni-broj-ispita">Redni broj izlaska na ispit:</label>
+                    <input type="number" id="redni-broj-ispita" name="redni-broj-ispita" min=1 max=6 required> <br>
+                    <span class="error-message" id="redni-broj-ispita-error"></span> 
+                </div>
+            </div>
 
-            <label for="rok">Rok</label>
-            <input type="radio" id="jan" name="rok" value="Januar">
-            <label for="jan">Januar</label>
-            <input type="radio" id="april" name="rok" value="April">
-            <label for="jan">April</label>
-            <input type="radio" id="jun" name="rok" value="Jun">
-            <label for="jun">Jun</label>
-            <input type="radio" id="septembar" name="rok" value="Septembar">
-            <label for="septembar">Septembar</label>
-            <br><br>
-
-            <input type="checkbox" id="polozila" name="polozila">
-            <label for="polozila">Polozila</label>
-            <br><br>
-            <input type="submit" value="Posalji" onclick="submitForm()">
+            <div class="forma-kolona" id="desna-kolona">
+                <div class="forma-stavka">
+                    <label for="datum-ispita">Datum izlaska na ispit:</label>
+                    <input type="date" id="datum-ispita" name="datum-ispita" required><br>
+                    <span class="error-message" id="datum-ispita-error"></span> 
+                </div>
+                <div class="forma-stavka">
+                    <label for="rok">Rok</label>
+                    <input type="radio" id="jan" name="rok" value="Januar" required>
+                    <label for="jan">Januar</label>
+                    <input type="radio" id="april" name="rok" value="April">
+                    <label for="jan">April</label>
+                    <input type="radio" id="jun" name="rok" value="Jun">
+                    <label for="jun">Jun</label>
+                    <input type="radio" id="septembar" name="rok" value="Septembar">
+                    <label for="septembar">Septembar</label><br>
+                    <span  class="error-message" id="rok-error"></span> 
+                </div>
+                <div class="forma-stavka">
+                    <input type="checkbox" id="polozen" name="polozen">
+                    <label for="polozen">Polozio/la</label><br>
+                    <span class="error-message" id="polozen-error"></span> 
+                </div>
+                <input type="submit" id="btn-posalji" value="Posalji" >
+            </div>
+        </form>
+        <div class="podaciforme-div">
+            <label for="podaci-forme">Podaci forme:</label> <br>
+            <textarea id="podaci-forme" cols="50" rows="5"></textarea> <br>
+            <span id="greska" style="color: red;"></span> 
+            <button id="ucitaj">Učitaj</button>
         </div>
-    </form>
+
+    </div>
     <script src="index.js"></script>
+    <script src="deserialize.js"></script>
 </body>
 </html>
